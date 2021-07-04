@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
-import { Table, Container, Pagination, Dimmer, Loader } from 'semantic-ui-react';
+import { Table, Container, Pagination, Loader } from 'semantic-ui-react';
 import BankListRow from './bank-list-row.component';
 import { DEFAULT_ROW_SIZE} from '../constant'
 
