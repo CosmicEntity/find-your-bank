@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
-import { Table, Container, Pagination } from 'semantic-ui-react';
+import { Table, Container, Pagination, Dimmer, Loader } from 'semantic-ui-react';
 import BankListRow from './bank-list-row.component';
 import { DEFAULT_ROW_SIZE} from '../constant'
 
 import './bank-list.styles.css'
 
-const BankList = ({data,city,query_string,favoriteActionHandler}) => {
-
-    const bankData = data,
+const BankList = (props) => {
+    
+    const {data,city,query_string,favoriteActionHandler,loading} = props,
+    bankData = data,
     [activePage, setActivePage] = useState(1),
     [paginatedData, setPaginatedData] = useState([]),
     [rowSize, setRowSize] = useState(DEFAULT_ROW_SIZE),
@@ -18,12 +19,16 @@ const BankList = ({data,city,query_string,favoriteActionHandler}) => {
         setActivePage(activePage);
     }
 
+    useEffect(()=>{
+      setPaginatedData([])
+    },[bankData])
+
     
     useEffect(() => {
-      debugger
       const startIndex = (activePage-1)*rowSize,
       endIndex=startIndex+rowSize;
       setPaginatedData(bankData.slice(startIndex,endIndex))
+
     }, [activePage,bankData, rowSize])
 
     useEffect(() => {
@@ -33,10 +38,10 @@ const BankList = ({data,city,query_string,favoriteActionHandler}) => {
     }, [query_string])
 
     useEffect(() => {
+      
       setActivePage(1)
       
     }, [city])
-
     
 
     return (
@@ -52,31 +57,44 @@ const BankList = ({data,city,query_string,favoriteActionHandler}) => {
             <Table.HeaderCell>ADDRESS</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-    
+        {!loading ? (
         <Table.Body onClick={e=>{
-          if(e.target.dataset.bank){
-          history.push({
-           pathname:`/all-banks/${e.target.dataset.bank}`,
-           state:{city:city}
-          })}
-          if(e.target.dataset.favorite){
-            favoriteActionHandler(e.target.dataset.favorite)
+          if(paginatedData.length){
+            if(e.target.dataset.bank){
+            history.push({
+            pathname:`/all-banks/${e.target.dataset.bank}`,
+            state:{city:city}
+            })}
+            if(e.target.dataset.favorite){
+              favoriteActionHandler(e.target.dataset.favorite)
+            }
           }
         }}>
           {
+            paginatedData.length ?
             paginatedData.map(bank => 
               <BankListRow bank={bank} key={bank.ifsc} />
-            )
+            ):( <Table.Row>
+                  <Table.HeaderCell colSpan='6'>
+                    <h3 style={{textAlign:'center'}}>No Favorite Banks Available</h3>
+                  </Table.HeaderCell>
+                </Table.Row>
+                )
           }
         </Table.Body>
-
+          ): (<Table.Body>
+              <Table.Row>
+                <Table.HeaderCell colSpan='6'>
+                  <Loader active inverted inline='centered'>Loading...</Loader>  
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Body>
+            )
+        }
         <Table.Footer fullWidth>
             <Table.Row>
                 <Table.HeaderCell colSpan='6'>
-                <span className='row-details'>Rows per page: 
-                  <input type='text' 
-                         value={paginatedData.length}
-                  /> 
+                <span className='row-details'>Rows per page: {paginatedData.length}
                 </span>
                { !!Math.ceil(bankData.length/(rowSize)) &&(<Pagination 
                   totalPages={Math.ceil(bankData.length/(rowSize))} 

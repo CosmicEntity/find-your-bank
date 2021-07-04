@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Container,Search} from 'semantic-ui-react';
 import { CITY_OPTIONS, CATEGORIES, DEFAULT_CITY } from '../../components/constant';
-import { getBankDetails} from '../../components/services.js';
+import { getBankDetails } from '../../components/services.js';
 import BankList from '../../components/bank-list/bank-list.component';
 import DropdownMenu from '../../components/dropdown-menu/dropdown-menu.component';
 
@@ -13,7 +13,8 @@ function Homepage() {
   [originalData, setOriginalData] = useState([]),
   [bankData, setBankData] = useState([]),
   [category, setCategory] = useState(null),
-  [query, setQuery] = useState('')
+  [query, setQuery] = useState(''),
+  [isLoading,setIsLoading] = useState(false)
   
   const transformData = (data) => {
     return data.map(bank => {
@@ -67,12 +68,14 @@ function Homepage() {
   },[city])
 
   useEffect(() => {
+    setIsLoading(true)
     getBankDetails(city)
     .then(data => {
-      
+      setIsLoading(false)
       const cacheData = JSON.parse(localStorage.getItem(`bank_details_${city}`))
+      let modifiedData
       if(!cacheData){
-        const modifiedData = transformData(data);
+        modifiedData = transformData(data);
         localStorage.setItem(`bank_details_${city}`,JSON.stringify(modifiedData))
         setBankData(modifiedData)
         setOriginalData(modifiedData)
@@ -81,7 +84,7 @@ function Homepage() {
       setOriginalData(cacheData)
       }
       
-    });
+    }).catch(err => console.err(err));
   }, [city])
 
   useEffect(() => {
@@ -140,7 +143,11 @@ function Homepage() {
             </div>
           </div>
         </div> 
-        <BankList data={bankData} city={city} favoriteActionHandler={handleFavorite} query_string={query}/>
+        <BankList data={bankData} 
+          city={city} 
+          favoriteActionHandler={handleFavorite} 
+          query_string={query}
+          loading={isLoading}/>
       </Container>
   );
 }

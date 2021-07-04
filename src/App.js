@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <SideMenu/>
       <Switch>
-        <Redirect exact from='/' to='/all-banks'/>
+        <Route exact path="/" render={()=><Redirect to="/all-banks"/>}/>
         <Route exact path='/all-banks' component={Homepage} />
         <Route exact path='/all-banks/:ifsc' component={BankDetails}/>
         <Route exact path='/favorites' component={Favorites}/>
