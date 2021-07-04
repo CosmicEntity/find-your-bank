@@ -14,7 +14,7 @@ function App() {
         <Redirect exact from='/' to='/all-banks'/>
         <Route exact path='/all-banks' component={Homepage} />
         <Route exact path='/all-banks/:ifsc' component={BankDetails}/>
-        <Route path='/favorites' component={Favorites}/>
+        <Route exact path='/favorites' component={Favorites}/>
       </Switch> 
     
     </div>
