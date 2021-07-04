@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {Container,Search} from 'semantic-ui-react';
-import {CATEGORIES} from '../../components/constant.js'
+import {Container} from 'semantic-ui-react';
 import BankList from '../../components/bank-list/bank-list.component';
-import DropdownMenu from '../../components/dropdown-menu/dropdown-menu.component';
 
 
 function Favorites() {
