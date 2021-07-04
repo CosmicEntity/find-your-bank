@@ -1,0 +1,16 @@
+
+  
+  .table-header{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .query-container{
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .query-fields{
+    margin: 10px 10px;
+  }
+  
