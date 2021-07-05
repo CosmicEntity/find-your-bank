@@ -63,7 +63,7 @@ const BankList = (props) => {
             if(e.target.dataset.bank){
             history.push({
             pathname:`/all-banks/${e.target.dataset.bank}`,
-            state:{city:city}
+            state:{city:e.target.dataset.city}
             })}
             if(e.target.dataset.favorite){
               favoriteActionHandler(e.target.dataset.favorite)
@@ -76,7 +76,7 @@ const BankList = (props) => {
               <BankListRow bank={bank} key={bank.ifsc} />
             ):( <Table.Row>
                   <Table.HeaderCell colSpan='6'>
-                    <h3 style={{textAlign:'center'}}>No Favorite Banks Available</h3>
+                    <h3 style={{textAlign:'center'}}>No Data Available</h3>
                   </Table.HeaderCell>
                 </Table.Row>
                 )
@@ -96,13 +96,13 @@ const BankList = (props) => {
                 <Table.HeaderCell colSpan='6'>
                 <span className='row-details'>Rows per page: {paginatedData.length}
                 </span>
-               { !!Math.ceil(bankData.length/(rowSize)) &&(<Pagination 
+               { !!Math.ceil(bankData.length/(rowSize))&& !loading &&(<Pagination 
                   totalPages={Math.ceil(bankData.length/(rowSize))} 
                   floated='right'
                   activePage={activePage}
                   onPageChange={handlePageChange}
-                  color={'grey'}
-                  inverted/>)}
+                  inverted
+                  color={'grey'}/>)}
                 </Table.HeaderCell>
             </Table.Row>
         </Table.Footer>

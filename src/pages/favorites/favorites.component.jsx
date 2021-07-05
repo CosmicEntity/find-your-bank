@@ -10,7 +10,9 @@ function Favorites() {
   
   useEffect(()=>{
     let allFavouriteBanks = JSON.parse(localStorage.getItem('favorite_banks'))
-    setBankData(allFavouriteBanks);
+    if(allFavouriteBanks){
+      setBankData(allFavouriteBanks)
+    }
   },[])
   
   

@@ -18,8 +18,8 @@ function Homepage() {
   
   const transformData = (data) => {
     return data.map(bank => {
-      const {bank_name,ifsc,branch,bank_id,address,city} = bank;
-      return {bank_name,ifsc,branch,bank_id,address,city,...{favorite:false}};
+      const {bank_name,ifsc,branch,bank_id,address,city,state} = bank;
+      return {bank_name,ifsc,branch,bank_id,address,city,state,...{favorite:false}};
     })
   }
  const handleFavorite = (ifsc)=>{
