@@ -1,6 +1,6 @@
 # Find Your Bank
 
-#### This is a bank finding app that lets you find your bank according in a particular city
+#### This is a bank finding app that lets you find your bank according to a particular city
 
 ### API Used
 Bank API - https://vast-shore-74260.herokuapp.com/bank?city={city_name}
