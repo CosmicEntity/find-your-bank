@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Container} from 'semantic-ui-react';
 import BankList from '../../components/bank-list/bank-list.component';
-
+import SideMenu from '../../components/side-menu/side-menu.component';
 
 function Favorites() {
 
@@ -54,6 +54,8 @@ function Favorites() {
   
  
   return (
+    <>
+    <SideMenu/>
     <Container>
       <div className="table-header">
           <div>
@@ -62,6 +64,7 @@ function Favorites() {
          </div> 
         <BankList data={bankData} favoriteActionHandler={handleFavorite}/>
       </Container>
+    </>
   );
 }
 

@@ -102,7 +102,7 @@ const BankList = (props) => {
                   activePage={activePage}
                   onPageChange={handlePageChange}
                   inverted
-                  color={'grey'}/>)}
+                  color={'black'}/>)}
                 </Table.HeaderCell>
             </Table.Row>
         </Table.Footer>

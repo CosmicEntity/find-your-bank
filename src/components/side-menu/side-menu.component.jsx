@@ -14,7 +14,7 @@ const SideMenu  = () => {
   })
 
     return (
-      <Menu vertical size={'large'}>
+      <Menu vertical size={'large'} >
         <Menu.Item
           name='All Banks'
           active={activeItem === 'All Banks'}

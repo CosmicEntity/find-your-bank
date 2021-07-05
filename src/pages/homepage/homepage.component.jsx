@@ -4,6 +4,7 @@ import { CITY_OPTIONS, CATEGORIES, DEFAULT_CITY } from '../../components/constan
 import { getBankDetails } from '../../components/services.js';
 import BankList from '../../components/bank-list/bank-list.component';
 import DropdownMenu from '../../components/dropdown-menu/dropdown-menu.component';
+import SideMenu from '../../components/side-menu/side-menu.component';
 
 import './homepage.styles.css';
 
@@ -105,6 +106,9 @@ function Homepage() {
   }, [query,setBankData,originalData,category])
 
   return (
+    <>
+
+    <SideMenu/>
     <Container>
       <div className="table-header">
           <div>
@@ -149,6 +153,7 @@ function Homepage() {
           query_string={query}
           loading={isLoading}/>
       </Container>
+      </>
   );
 }
 
